@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.DataSyncController"
+            stylesheets="@../styles/theme.css"
+            prefWidth="1300" prefHeight="800">
+
+    <top>
+        <VBox spacing="10" styleClass="header-bar-flat">
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <Label text="💾 Data Synchronization" styleClass="header-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Device:" styleClass="header-subtext"/>
+                <Label fx:id="deviceIdLabel" text="Loading..." styleClass="header-value"/>
+                <Label text="Role:" styleClass="header-subtext"/>
+                <Label fx:id="deviceRoleLabel" text="Loading..." styleClass="header-value" style="-fx-text-fill: #e74c3c;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="18" style="-fx-padding: 22; -fx-background-color: #eef2f6;">
+            
+            <!-- USB Path Selection -->
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="card">
+                <Label text="USB Drive Path:" styleClass="field-label" minWidth="140"/>
+                <TextField fx:id="usbPathField" HBox.hgrow="ALWAYS" promptText="E:/" text="E:/" styleClass="text-field"/>
+                <Button fx:id="browseButton" text="Browse..." onAction="#handleBrowse" styleClass="btn, btn-primary"/>
+            </HBox>
+
+            <!-- Action Buttons -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button fx:id="exportButton" text="📤 Export to USB" onAction="#handleExport" styleClass="btn, btn-primary"/>
+                <Button fx:id="importButton" text="📥 Import from USB" onAction="#handleImport" styleClass="btn, btn-success"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="🔄 Refresh" onAction="#handleRefresh" styleClass="btn, btn-neutral"/>
+            </HBox>
+
+            <!-- Status Bar -->
+            <HBox spacing="24" styleClass="card">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Status:" styleClass="field-label"/>
+                    <Label fx:id="statusLabel" text="Ready" style="-fx-font-size: 14px; -fx-text-fill: #123a5c;"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Pending Records:" styleClass="field-label"/>
+                    <Label fx:id="pendingCountLabel" text="0" styleClass="stat-card-value-md" style="-fx-text-fill: #e74c3c;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Progress Bar -->
+            <ProgressBar fx:id="progressBar" prefWidth="Infinity" prefHeight="10" visible="false"/>
+
+            <!-- Pending Data Table -->
+            <Label text="Pending Export Data:" styleClass="card-title"/>
+            <TableView fx:id="pendingTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="rfidTagColumn" text="RFID Tag" prefWidth="220"/>
+                    <TableColumn fx:id="checkpointColumn" text="Checkpoint" prefWidth="170"/>
+                    <TableColumn fx:id="timeColumn" text="Time" prefWidth="170"/>
+                </columns>
+            </TableView>
+
+            <!-- Log Area -->
+            <Label text="Activity Log:" styleClass="card-title"/>
+            <TextArea fx:id="logArea" editable="false" prefHeight="160" 
+                      style="-fx-font-family: 'Courier New'; -fx-font-size: 13px;"/>
+        </VBox>
+    </center>
+
+</BorderPane>

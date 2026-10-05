@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.ConfigurationController"
+            stylesheets="@../styles/theme.css"
+            prefWidth="1500" prefHeight="900">
+
+    <!-- Header -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="header-bar-flat">
+            <Label text="⚙️ Checkpoint Configuration" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="saveConfigButton" text="💾 Save" onAction="#handleSaveConfig" styleClass="btn, btn-success"/>
+            <Button fx:id="testReadersButton" text="🔍 Test All" onAction="#handleTestReaders" styleClass="btn, btn-primary"/>
+            <Button fx:id="resetButton" text="🔄 Reset" onAction="#handleReset" styleClass="btn, btn-danger"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #eef2f6; -fx-background: #eef2f6;">
+            <VBox spacing="16" style="-fx-padding: 18;">
+
+                <Label text="Configure RFID readers for each checkpoint location. Each location supports 1-2 readers, each with 4 antennas listed under 'Antenna' beside the IP/Port fields. 🟢 = Connected / antenna powered | 🔴 = Failed / antenna not detected | ⚪ = Not configured or not tested yet (antennas stay gray while their reader is unreachable). The line under the antenna list shows how many of the 4 are currently working."
+                       styleClass="field-hint" wrapText="true"/>
+
+                <GridPane hgap="16" vgap="16">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <VBox spacing="8" styleClass="location-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="📍 LOCATION 1" styleClass="location-title"/>
+                            <CheckBox fx:id="location1EnabledCheckBox" text="Enable"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <CheckBox fx:id="location1StartCheckBox" text="✅ Start" selected="true"/>
+                            <CheckBox fx:id="location1FinishCheckBox" text="🏁 Finish"/>
+                        </HBox>
+
+                        <GridPane hgap="10" vgap="8">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="65" prefWidth="65"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                                <ColumnConstraints minWidth="85" prefWidth="85"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location1NameField" promptText="Location 1" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Dist(km):" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location1DistanceField" promptText="2.0" GridPane.columnIndex="3" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Readers:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <ComboBox fx:id="location1ReaderCountComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" styleClass="combo-box"/>
+                        </GridPane>
+
+                        <Separator/>
+
+                        <!-- Reader A / Reader B side-by-side -->
+                        <HBox spacing="16" alignment="TOP_LEFT">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location1ReaderAStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader A" styleClass="reader-label-a"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location1ReaderAIpField" promptText="192.168.1.101" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location1ReaderAPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location1ReaderAAntennaBox" spacing="3"/>
+                                        <Label fx:id="location1ReaderAAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                            <VBox fx:id="location1ReaderBContainer" spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location1ReaderBStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader B" styleClass="reader-label-b"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location1ReaderBIpField" promptText="192.168.1.102" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location1ReaderBPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location1ReaderBAntennaBox" spacing="3"/>
+                                        <Label fx:id="location1ReaderBAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="8" styleClass="location-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="📍 LOCATION 2" styleClass="location-title"/>
+                            <CheckBox fx:id="location2EnabledCheckBox" text="Enable"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <CheckBox fx:id="location2StartCheckBox" text="✅ Start"/>
+                            <CheckBox fx:id="location2FinishCheckBox" text="🏁 Finish"/>
+                        </HBox>
+
+                        <GridPane hgap="10" vgap="8">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="65" prefWidth="65"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                                <ColumnConstraints minWidth="85" prefWidth="85"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location2NameField" promptText="Location 2" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Dist(km):" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location2DistanceField" promptText="4.0" GridPane.columnIndex="3" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Readers:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <ComboBox fx:id="location2ReaderCountComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" styleClass="combo-box"/>
+                        </GridPane>
+
+                        <Separator/>
+
+                        <!-- Reader A / Reader B side-by-side -->
+                        <HBox spacing="16" alignment="TOP_LEFT">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location2ReaderAStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader A" styleClass="reader-label-a"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location2ReaderAIpField" promptText="192.168.1.103" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location2ReaderAPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location2ReaderAAntennaBox" spacing="3"/>
+                                        <Label fx:id="location2ReaderAAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                            <VBox fx:id="location2ReaderBContainer" spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location2ReaderBStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader B" styleClass="reader-label-b"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location2ReaderBIpField" promptText="192.168.1.104" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location2ReaderBPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location2ReaderBAntennaBox" spacing="3"/>
+                                        <Label fx:id="location2ReaderBAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="8" styleClass="location-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="📍 LOCATION 3" styleClass="location-title"/>
+                            <CheckBox fx:id="location3EnabledCheckBox" text="Enable"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <CheckBox fx:id="location3StartCheckBox" text="✅ Start"/>
+                            <CheckBox fx:id="location3FinishCheckBox" text="🏁 Finish"/>
+                        </HBox>
+
+                        <GridPane hgap="10" vgap="8">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="65" prefWidth="65"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                                <ColumnConstraints minWidth="85" prefWidth="85"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location3NameField" promptText="Location 3" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Dist(km):" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location3DistanceField" promptText="6.0" GridPane.columnIndex="3" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Readers:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <ComboBox fx:id="location3ReaderCountComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" styleClass="combo-box"/>
+                        </GridPane>
+
+                        <Separator/>
+
+                        <!-- Reader A / Reader B side-by-side -->
+                        <HBox spacing="16" alignment="TOP_LEFT">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location3ReaderAStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader A" styleClass="reader-label-a"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location3ReaderAIpField" promptText="192.168.1.105" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location3ReaderAPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location3ReaderAAntennaBox" spacing="3"/>
+                                        <Label fx:id="location3ReaderAAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                            <VBox fx:id="location3ReaderBContainer" spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location3ReaderBStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader B" styleClass="reader-label-b"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location3ReaderBIpField" promptText="192.168.1.106" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location3ReaderBPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location3ReaderBAntennaBox" spacing="3"/>
+                                        <Label fx:id="location3ReaderBAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="8" styleClass="location-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="📍 LOCATION 4" styleClass="location-title"/>
+                            <CheckBox fx:id="location4EnabledCheckBox" text="Enable"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <CheckBox fx:id="location4StartCheckBox" text="✅ Start"/>
+                            <CheckBox fx:id="location4FinishCheckBox" text="🏁 Finish" selected="true"/>
+                        </HBox>
+
+                        <GridPane hgap="10" vgap="8">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="65" prefWidth="65"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                                <ColumnConstraints minWidth="85" prefWidth="85"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location4NameField" promptText="Location 4" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Dist(km):" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="field-label"/>
+                            <TextField fx:id="location4DistanceField" promptText="8.0" GridPane.columnIndex="3" GridPane.rowIndex="0" styleClass="text-field"/>
+
+                            <Label text="Readers:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                            <ComboBox fx:id="location4ReaderCountComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" styleClass="combo-box"/>
+                        </GridPane>
+
+                        <Separator/>
+
+                        <!-- Reader A / Reader B side-by-side -->
+                        <HBox spacing="16" alignment="TOP_LEFT">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location4ReaderAStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader A" styleClass="reader-label-a"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location4ReaderAIpField" promptText="192.168.1.107" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location4ReaderAPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location4ReaderAAntennaBox" spacing="3"/>
+                                        <Label fx:id="location4ReaderAAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                            <VBox fx:id="location4ReaderBContainer" spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Circle fx:id="location4ReaderBStatus" radius="6" fill="gray"/>
+                                    <Label text="Reader B" styleClass="reader-label-b"/>
+                                </HBox>
+                                <HBox spacing="14" alignment="TOP_LEFT">
+                                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="IP:" styleClass="field-label" minWidth="26"/>
+                                            <TextField fx:id="location4ReaderBIpField" promptText="192.168.1.108" HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                                        </HBox>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Label text="Port:" styleClass="field-label" minWidth="34"/>
+                                            <TextField fx:id="location4ReaderBPortField" editable="false" focusTraversable="false" prefWidth="90" styleClass="text-field" style="-fx-background-color: #e9edf1; -fx-text-fill: #4a5560;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox spacing="4" styleClass="antenna-panel">
+                                        <Label text="Antenna" styleClass="field-label"/>
+                                        <VBox fx:id="location4ReaderBAntennaBox" spacing="3"/>
+                                        <Label fx:id="location4ReaderBAntennaSummary" text="Not tested" styleClass="field-hint"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </GridPane>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

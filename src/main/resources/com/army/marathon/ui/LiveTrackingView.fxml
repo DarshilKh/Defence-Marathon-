@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.LiveTrackingController"
+            stylesheets="@../styles/theme.css"
+            prefWidth="1500" prefHeight="900">
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #eaf3fb; -fx-background: #eaf3fb;">
+        <VBox spacing="0">
+        <VBox spacing="10" styleClass="header-bar">
+
+            <!-- Title Row -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="🏁 Live Race Tracking &amp; Control" styleClass="header-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <!-- Step 1: Race Configuration - race name, duplicate-read window, reader type -->
+            <HBox spacing="14" alignment="CENTER_LEFT" styleClass="section-card">
+                <Label text="1️⃣ Race Name:" styleClass="section-label"/>
+                <TextField fx:id="raceNameField" promptText="Enter race name (e.g., Indian Defence Marathon 2026)"
+                           HBox.hgrow="ALWAYS" styleClass="text-field"/>
+                <Label text="Duplicate read window (min):" styleClass="section-label"/>
+                <Spinner fx:id="duplicateReadWindowSpinner" prefWidth="80" editable="true"/>
+                <Label text="Reader Type:" styleClass="section-label"/>
+                <ComboBox fx:id="readerTypeComboBox" prefWidth="130" styleClass="combo-box"/>
+                <Button fx:id="saveRaceConfigButton" text="💾 Save" onAction="#handleSaveRaceConfig" styleClass="btn, btn-success"/>
+            </HBox>
+            <Label fx:id="raceConfigStatusLabel" text="No race configured yet" styleClass="panel-hint"/>
+
+            <!-- Step 2: Calculate Results - computed directly from live RFID readings, no file upload -->
+            <HBox spacing="16" alignment="CENTER_LEFT" styleClass="section-card">
+                <Label text="2️⃣ Calculation Mode:" styleClass="section-label"/>
+                <ComboBox fx:id="calculationModeComboBox" prefWidth="260" styleClass="combo-box"/>
+
+                <Separator orientation="VERTICAL" prefHeight="28"/>
+
+                <Button fx:id="calculateButton" text="🧮 Calculate Results" onAction="#handleCalculate"
+                        disable="true" styleClass="btn, btn-danger">
+                    <tooltip>
+                        <Tooltip text="Available once the race has been stopped (Stop Race). Calculates results, then opens the Results tab."/>
+                    </tooltip>
+                </Button>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Label text="📋 View calculated results on the Results tab" styleClass="section-label"/>
+            </HBox>
+
+            <VBox fx:id="modeSettingsContainer" spacing="6" styleClass="section-card-alt">
+                <!-- Dynamic content added by controller (lap settings, start-time hint, etc.) -->
+            </VBox>
+
+            <!-- Step 3: race controls + export, all in one compact row. Readers connect only when
+                 Start Race is clicked; the Declared Start control exists only in the Manual Start mode. -->
+            <HBox spacing="14" alignment="CENTER_LEFT" styleClass="section-card">
+                <Label text="3️⃣ Race Control:" styleClass="section-label"/>
+
+                <HBox fx:id="declaredStartBox" spacing="10" alignment="CENTER_LEFT" visible="false" managed="false">
+                    <Label text="⏰ Declared Start:" styleClass="section-label"/>
+                    <TextField fx:id="manualStartTimeField" editable="false" focusTraversable="false" prefWidth="100"
+                               styleClass="text-field" style="-fx-alignment: CENTER;">
+                        <tooltip>
+                            <Tooltip text="Live system clock. Start Race stamps this exact moment as the race's declared start."/>
+                        </tooltip>
+                    </TextField>
+                    <Label text="Declared:" styleClass="section-label"/>
+                    <Label fx:id="currentStartTimeLabel" text="Not Set" styleClass="header-value" style="-fx-text-fill: #ffd27a;"/>
+                    <Separator orientation="VERTICAL" prefHeight="28"/>
+                </HBox>
+
+                <Button fx:id="startRaceButton" text="🏁 Start Race" onAction="#handleStartRace" styleClass="btn, btn-success">
+                    <tooltip>
+                        <Tooltip text="Connects the readers on every enabled checkpoint and starts listening. The race officially starts on the first valid tag scan at the start-line checkpoint."/>
+                    </tooltip>
+                </Button>
+                <Button fx:id="stopRaceButton" text="⏹️ Stop Race" onAction="#handleStopRace" disable="true" styleClass="btn, btn-danger"/>
+                <Button fx:id="resetRaceButton" text="🔄 Reset" onAction="#handleResetRace" styleClass="btn, btn-purple"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button fx:id="exportReadingsButton" text="📥 Export Readings"
+                        onAction="#handleExportReadings" disable="true" styleClass="btn, btn-teal">
+                    <tooltip>
+                        <Tooltip text="Exports tag readings from ALL enabled checkpoints as an Excel file, using the time each tag was scanned."/>
+                    </tooltip>
+                </Button>
+            </HBox>
+
+            <!-- Compact single-line status bar -->
+            <HBox spacing="26" alignment="CENTER_LEFT" style="-fx-background-color: rgba(0,0,0,0.28); -fx-padding: 10 16; -fx-background-radius: 4;">
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label text="RACE STATUS:" styleClass="header-subtext"/>
+                    <Label fx:id="raceStatusLabel" text="⏸️ READY TO START" styleClass="header-title" style="-fx-font-size: 14px;"/>
+                </HBox>
+                <Separator orientation="VERTICAL" prefHeight="20"/>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label fx:id="startLineLabel" text="START: Not configured" styleClass="header-value" style="-fx-text-fill: #ffd27a;"/>
+                </HBox>
+                <Separator orientation="VERTICAL" prefHeight="20"/>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label text="PARTICIPANTS:" styleClass="header-subtext"/>
+                    <Label fx:id="totalParticipantsLabel" text="0" styleClass="stat-card-value-md" style="-fx-font-size: 16px; -fx-text-fill: #8fc1f0;"/>
+                </HBox>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label text="READINGS:" styleClass="header-subtext"/>
+                    <Label fx:id="finishedCountLabel" text="0" styleClass="stat-card-value-md" style="-fx-font-size: 16px; -fx-text-fill: #6fd88a;"/>
+                </HBox>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label text="ACTIVE READERS:" styleClass="header-subtext"/>
+                    <Label fx:id="activeReadersLabel" text="0" styleClass="stat-card-value-md" style="-fx-font-size: 16px; -fx-text-fill: #ffb4b0;"/>
+                </HBox>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label text="UNREGISTERED SCANS:" styleClass="header-subtext"/>
+                    <Label fx:id="unregisteredScansLabel" text="0" styleClass="stat-card-value-md" style="-fx-font-size: 16px; -fx-text-fill: #8fc1f0;"/>
+                </HBox>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label text="OFF-ROSTER SCANS:" styleClass="header-subtext"/>
+                    <Label fx:id="offRosterScansLabel" text="0" styleClass="stat-card-value-md" style="-fx-font-size: 16px; -fx-text-fill: #8fc1f0;"/>
+                </HBox>
+            </HBox>
+        </VBox>
+
+        <!-- Live Readings Table -->
+        <VBox spacing="8" style="-fx-padding: 14 18 18 18; -fx-background-color: #eaf3fb;">
+
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <Label text="📊 Live Tag Readings (Latest 100)" styleClass="panel-title"/>
+                <Label text="⚡ Auto-refreshes every 2 seconds" styleClass="panel-hint"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="⚠️ These are raw scans — use 'Calculate Results' above, then check the 'Results' tab" styleClass="field-label" style="-fx-text-fill: #c0392b;"/>
+            </HBox>
+
+            <TableView fx:id="liveResultsTable" prefHeight="450" minHeight="450" styleClass="panel">
+                <columns>
+                    <TableColumn fx:id="checkpointColumn" text="Location" prefWidth="160"
+                                 style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="serviceNoColumn" text="Tag No" prefWidth="130"
+                                 style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="nameColumn" text="Name" prefWidth="240"
+                                 style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="unitColumn" text="Unit" prefWidth="190"
+                                 style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="timeColumn" text="Scan Time" prefWidth="130"
+                                 style="-fx-alignment: CENTER;"/>
+                </columns>
+                <placeholder>
+                    <VBox alignment="CENTER" spacing="8" style="-fx-padding: 30;">
+                        <Label text="📡 No Tag Readings Yet" styleClass="placeholder-title"/>
+                        <Label text="Start the race and tags will appear here as they are scanned" styleClass="placeholder-text"/>
+                        <Label text="💡 Tip: Export readings after race to get checkpoint-wise Excel files" styleClass="placeholder-tip"/>
+                    </VBox>
+                </placeholder>
+            </TableView>
+        </VBox>
+        </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

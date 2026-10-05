@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.MainViewController"
+            fx:id="mainContainer"
+            stylesheets="@../styles/theme.css"
+            prefWidth="1500" prefHeight="900">
+
+    <!-- STATUS BAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="header-bar-flat">
+            <!-- Company mark only (no wordmark), on a white pill against the blue bar -->
+            <StackPane style="-fx-background-color: white; -fx-background-radius: 6; -fx-padding: 3 8;">
+                <ImageView fitHeight="30" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/logo/nts_icon.png"/>
+                    </image>
+                </ImageView>
+            </StackPane>
+
+            <Label text="🎖️ Indian Defence Marathon - RFID Timing System" styleClass="header-title"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="systemStatusLabel" text="Initializing..." styleClass="header-subtext"/>
+
+            <Separator orientation="VERTICAL" style="-fx-background-color: rgba(255,255,255,0.2);" prefHeight="18"/>
+
+            <Label fx:id="deviceModeLabel" text="NOT CONFIGURED" styleClass="header-subtext"
+                   style="-fx-text-fill: #e74c3c;"/>
+
+            <Separator orientation="VERTICAL" style="-fx-background-color: rgba(255,255,255,0.2);" prefHeight="18"/>
+
+            <Button fx:id="runSetupButton" text="⚙️ Setup" onAction="#handleRunSetup"
+                    styleClass="btn-sm, btn-orange"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="📝 Registration" fx:id="registrationTab"/>
+            <Tab text="⚙️ Configuration" fx:id="configurationTab"/>
+            <Tab text="📋 Race Entries" fx:id="raceEntriesTab"/>
+            <Tab text="🏁 Live Tracking" fx:id="liveTrackingTab"/>
+            <Tab text="📊 Results" fx:id="resultsTab"/>
+            <Tab text="📅 Reports" fx:id="reportsTab"/>
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="6" styleClass="footer-bar">
+            <Label text="Powered by" styleClass="footer-text"/>
+            <Label text="NTS Race System" styleClass="footer-text-accent"/>
+            <Label text="| © 2026" styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

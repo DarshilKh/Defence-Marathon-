@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.RaceEntriesController"
+            stylesheets="@../styles/theme.css"
+            prefWidth="1500" prefHeight="900">
+
+    <!-- HEADER -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="header-bar-flat">
+            <Label text="📋 Race Entries" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="raceLabel" text="Race: -" styleClass="header-subtext"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="12" style="-fx-padding: 14; -fx-background-color: #eef2f6;">
+
+            <!-- WARNING -->
+            <Label styleClass="badge-warning" wrapText="true" maxWidth="Infinity"
+                   style="-fx-padding: 10 14; -fx-font-weight: bold; -fx-font-size: 13px;"
+                   text="⚠️ If no roster is saved, ALL registered participants will be scannable. Save a roster before the race starts to restrict scanning to today's runners only."/>
+
+            <Label fx:id="rosterStatusLabel" text="" styleClass="field-label"/>
+
+            <!-- TOOLBAR -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="🔍 Search:" styleClass="field-label"/>
+                <TextField fx:id="searchField" promptText="Name or Tag No" prefWidth="300" styleClass="text-field"/>
+                <Button fx:id="selectAllButton" text="☑ Select All" onAction="#handleSelectAll" styleClass="btn, btn-blue"/>
+                <Button fx:id="selectNoneButton" text="☐ Select None" onAction="#handleSelectNone" styleClass="btn, btn-neutral"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button fx:id="downloadTemplateButton" text="📥 Download Template" onAction="#handleDownloadTemplate" styleClass="btn, btn-primary"/>
+                <Button fx:id="uploadExcelButton" text="📤 Upload Tag No Excel" onAction="#handleUploadExcel" styleClass="btn, btn-purple"/>
+                <Button fx:id="saveRosterButton" text="💾 Save Roster" onAction="#handleSaveRoster" styleClass="btn, btn-success"/>
+            </HBox>
+
+            <!-- TABLE -->
+            <TableView fx:id="rosterTable" VBox.vgrow="ALWAYS" minHeight="300">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+                <columns>
+                    <TableColumn fx:id="includedColumn" text="In Race" prefWidth="80" maxWidth="100" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="nameColumn" text="Name" prefWidth="300" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="tagNoColumn" text="Tag No" prefWidth="140" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="unitColumn" text="Unit" prefWidth="180" style="-fx-alignment: CENTER;"/>
+                </columns>
+                <placeholder>
+                    <Label text="No participants registered yet. Register participants on the Registration tab first." styleClass="placeholder-text"/>
+                </placeholder>
+            </TableView>
+
+            <!-- STATUS -->
+            <HBox spacing="24" alignment="CENTER_LEFT" styleClass="status-bar">
+                <Label fx:id="selectedCountLabel" text="0 of 0 participants selected" styleClass="status-value-blue"/>
+            </HBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

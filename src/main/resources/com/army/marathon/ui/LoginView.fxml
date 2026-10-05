@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.LoginController"
+            stylesheets="@../styles/theme.css"
+            prefHeight="640.0" prefWidth="640.0"
+            style="-fx-background-color: #eef2f6;">
+
+    <VBox alignment="CENTER" spacing="22"
+          AnchorPane.topAnchor="40"
+          AnchorPane.bottomAnchor="30"
+          AnchorPane.leftAnchor="90"
+          AnchorPane.rightAnchor="90">
+
+        <!-- Logo -->
+        <VBox alignment="CENTER" spacing="8">
+            <Label text="Powered by" styleClass="muted-text"/>
+            <ImageView fitWidth="240" preserveRatio="true" smooth="true">
+                <image>
+                    <Image url="@/logo/nts_logo.png"/>
+                </image>
+            </ImageView>
+        </VBox>
+
+        <!-- Title -->
+        <Label text="Army Marathon Timing System" styleClass="app-title" wrapText="true" textAlignment="CENTER"/>
+
+        <!-- Login Card -->
+        <VBox spacing="16" styleClass="login-card" maxWidth="380">
+
+            <Label text="Login" styleClass="login-heading"/>
+
+            <!-- Username -->
+            <VBox spacing="6">
+                <Label text="Username" styleClass="field-label"/>
+                <TextField fx:id="usernameField" promptText="Enter username" styleClass="text-field"/>
+            </VBox>
+
+            <!-- Password -->
+            <VBox spacing="6">
+                <Label text="Password" styleClass="field-label"/>
+                <PasswordField fx:id="passwordField" promptText="Enter password"
+                               styleClass="password-field" onAction="#handleLogin"/>
+            </VBox>
+
+            <!-- Error Label -->
+            <Label fx:id="errorLabel" text="" styleClass="error-text"
+                   wrapText="true" visible="false" managed="false"/>
+
+            <!-- Buttons -->
+            <HBox spacing="12" alignment="CENTER" style="-fx-padding: 8 0 0 0;">
+                <Button fx:id="loginButton" text="Login" onAction="#handleLogin"
+                        prefWidth="160" styleClass="btn, btn-primary"/>
+                <Button text="Exit" onAction="#handleExit"
+                        prefWidth="160" styleClass="btn-outline"/>
+            </HBox>
+        </VBox>
+
+        <!-- Demo Credentials -->
+        <Label text="Demo: admin / admin123" styleClass="muted-text"/>
+
+        <!-- Footer -->
+        <HBox spacing="10" alignment="CENTER" maxWidth="380" style="-fx-padding: 6 0 0 0;">
+            <Label text="Powered by NTS Race System" styleClass="muted-text"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblVersion" text="v1.0.0" styleClass="muted-text"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
