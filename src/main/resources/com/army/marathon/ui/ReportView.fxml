@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.ReportController"
+            stylesheets="@../styles/theme.css">
+    
+    <top>
+        <HBox styleClass="header-bar-flat">
+            <Label text="📊 Race Reports &amp; Export" styleClass="header-title"/>
+        </HBox>
+    </top>
+    
+    <center>
+        <VBox spacing="20" style="-fx-padding: 24; -fx-background-color: #eef2f6;">
+            
+            <!-- Report Configuration -->
+            <VBox spacing="16" styleClass="card">
+                
+                <Label text="Report Configuration" styleClass="card-title"/>
+                
+                <GridPane hgap="16" vgap="16">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="150" prefWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    
+                    <Label text="Select Race:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label"/>
+                    <ComboBox fx:id="raceComboBox" promptText="Choose Race" 
+                              GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" styleClass="combo-box"/>
+                    
+                    <Label text="Date Range:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label"/>
+                    <HBox spacing="12" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <DatePicker fx:id="fromDatePicker" promptText="From" HBox.hgrow="ALWAYS" styleClass="date-picker"/>
+                        <Label text="to" styleClass="field-label"/>
+                        <DatePicker fx:id="toDatePicker" promptText="To" HBox.hgrow="ALWAYS" styleClass="date-picker"/>
+                    </HBox>
+                </GridPane>
+                
+                <Separator/>
+                
+                <Label text="Report Options" styleClass="card-title" style="-fx-font-size: 14px;"/>
+                
+                <VBox spacing="12">
+                    <CheckBox fx:id="includeCheckpointDetailsCheckBox" 
+                              text="Include Checkpoint-wise Details" selected="true"/>
+                    <CheckBox fx:id="includeSummaryCheckBox" 
+                              text="Include Race Summary" selected="true"/>
+                </VBox>
+                
+                <HBox spacing="16" alignment="CENTER" style="-fx-padding: 12 0 0 0;">
+                    <Button fx:id="generateReportButton" text="🔍 Preview Report" onAction="#handleGenerateReport"
+                            styleClass="btn, btn-primary" prefWidth="190"/>
+                    
+                    <Button fx:id="exportExcelButton" text="📥 Export to Excel" onAction="#handleExportExcel"
+                            styleClass="btn, btn-success" prefWidth="190"/>
+                </HBox>
+                
+                <HBox alignment="CENTER">
+                    <Label fx:id="statusLabel" text="Ready" styleClass="field-hint"/>
+                </HBox>
+            </VBox>
+            
+            <!-- Report Preview -->
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="Report Preview" styleClass="card-title"/>
+                <TextArea fx:id="reportPreviewArea" editable="false" wrapText="true" 
+                          VBox.vgrow="ALWAYS" styleClass="text-area"
+                          style="-fx-font-family: 'Courier New'; -fx-font-size: 13px;"
+                          promptText="Click 'Preview Report' to see report details here..."/>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

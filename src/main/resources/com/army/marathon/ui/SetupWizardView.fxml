@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.army.marathon.ui.SetupWizardController"
+            stylesheets="@../styles/theme.css"
+            prefWidth="680" prefHeight="700">
+
+    <!-- Header -->
+    <top>
+        <VBox spacing="6" styleClass="header-bar-flat" style="-fx-background-color: #1e3a5f;">
+            <Label text="🎯 System Setup Wizard" styleClass="header-title"/>
+            <Label text="Configure your device role and settings" styleClass="header-subtitle"/>
+        </VBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 28; -fx-background-color: #eef2f6;">
+            
+            <!-- Device ID -->
+            <VBox spacing="8">
+                <Label text="Device ID:" styleClass="field-label"/>
+                <TextField fx:id="deviceIdField" promptText="e.g., MASTER, CHECKPOINT_1" styleClass="text-field"/>
+            </VBox>
+
+            <!-- Device Role -->
+            <VBox spacing="8">
+                <Label text="Device Role:" styleClass="field-label"/>
+                <ComboBox fx:id="deviceRoleComboBox" prefWidth="Infinity" styleClass="combo-box"/>
+            </VBox>
+
+            <!-- Checkpoint Name -->
+            <VBox spacing="8">
+                <Label text="Checkpoint/Location Name:" styleClass="field-label"/>
+                <TextField fx:id="checkpointNameField" promptText="e.g., Start Line, 2KM Point" styleClass="text-field"/>
+            </VBox>
+            
+            <!-- Test Connection -->
+            <HBox spacing="14" alignment="CENTER_LEFT">
+                <Button fx:id="testConnectionButton" text="🔍 Test Connection" onAction="#handleTestConnection"
+                        styleClass="btn, btn-purple"/>
+                <Label text="Check if database is accessible" styleClass="field-hint"/>
+            </HBox>
+
+            <!-- Instructions -->
+            <VBox spacing="10" styleClass="card" style="-fx-background-color: #f4f9ff; -fx-border-color: #a6791f; -fx-border-width: 0 0 0 4;">
+                <Label text="ℹ️ Instructions:" styleClass="card-title" style="-fx-font-size: 15px;"/>
+                <Label fx:id="instructionLabel" wrapText="true" style="-fx-font-size: 14px; -fx-text-fill: #123a5c;"
+                       text="Select a device role to see configuration instructions."/>
+            </VBox>
+
+        </VBox>
+    </center>
+
+    <!-- Footer Buttons -->
+    <bottom>
+        <HBox spacing="12" alignment="CENTER_RIGHT" style="-fx-padding: 20; -fx-background-color: #eef2f6;">
+            <Button fx:id="cancelButton" text="Cancel" onAction="#handleCancel" 
+                    styleClass="btn-outline" prefWidth="130"/>
+            <Button fx:id="saveButton" text="Save &amp; Restart" onAction="#handleSave"
+                    styleClass="btn, btn-success" prefWidth="160"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
