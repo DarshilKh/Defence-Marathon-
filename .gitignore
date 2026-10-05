@@ -1,0 +1,60 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Runtime logs ###
+logs/
+
+### Native libs auto-copied to the working dir at startup (see
+### MarathonApplication#configureNativeLibraryPath) - the real, tracked
+### copies live in lib/, not the project root. ###
+/RFIDAPI32PC.dll
+/RFIDAPI3_JNI_HOST.dll
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Packaging skeleton folders are intentionally tracked (the global logs/ rule would hide the one below) ###
+!/src/main/packaging/skeleton/logs/
+
+### Application data - never commit (race/participant data, backups, exports) ###
+data/
+backups/
+exports/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.log.gz
+*.csv
+*.xlsx
+
+### Local AI/agent working state ###
+.ai/
