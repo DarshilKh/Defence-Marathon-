@@ -57,3 +57,8 @@ That folder (about 185 MB) is fully self-contained: a trimmed Java runtime, all 
 See **[TESTING.md](TESTING.md)** for the full handoff/testing guide: first-launch setup, default
 login, a tab-by-tab checklist, and exact step-by-step test scripts for all six race-results
 calculation modes (with and without physical RFID hardware).
+
+## Configuration
+
+The online (MySQL) database password is read from the `DB_PASSWORD` environment variable.
+Runtime data (`data/`, `logs/`, `backups/`, `exports/`) is git-ignored and never committed.
