@@ -1,0 +1,645 @@
+/*
+ * Indian Defence Marathon RFID Timing System — LIGHT PROFESSIONAL / DEFENCE-OPS THEME
+ * Light page background + white panels + bold dark-navy borders for strong
+ * structure. Semantic colors for status. No dark dashboard, no gold-everywhere.
+ */
+
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #eaf3fb;
+    -fx-text-fill: #123a5c;
+}
+
+Label {
+    -fx-text-fill: #123a5c;
+}
+
+/* ============ HEADER / COMMAND BAR ============ */
+
+.header-bar {
+    -fx-padding: 14 20;
+    -fx-background-color: #1565c0;
+    -fx-border-color: #0d47a1;
+    -fx-border-width: 0 0 3 0;
+}
+
+.header-bar-flat {
+    -fx-padding: 14 22;
+    -fx-background-color: #1565c0;
+    -fx-border-color: #0d47a1;
+    -fx-border-width: 0 0 3 0;
+}
+
+.header-title {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-letter-spacing: 0.3px;
+}
+
+.header-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #cfe4fb;
+}
+
+.header-subtext {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #cfe4fb;
+    -fx-letter-spacing: 0.5px;
+}
+
+.header-value {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8fc1f0;
+}
+
+.status-strip {
+    -fx-padding: 8 16;
+    -fx-background-color: white;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+}
+
+.status-strip-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5a6772;
+    -fx-letter-spacing: 1px;
+}
+
+.status-strip-value {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #123a5c;
+}
+
+/* ============ CARDS / PANELS ============ */
+
+.card {
+    -fx-background-color: white;
+    -fx-padding: 18;
+    -fx-background-radius: 4;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+}
+
+.card-tight {
+    -fx-background-color: white;
+    -fx-padding: 14;
+    -fx-background-radius: 4;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 5, 0, 0, 1);
+}
+
+.card-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565c0;
+    -fx-letter-spacing: 0.3px;
+}
+
+.section-card {
+    -fx-background-color: rgba(255,255,255,0.14);
+    -fx-padding: 16;
+    -fx-background-radius: 4;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
+
+.section-card-alt {
+    -fx-background-color: rgba(255,255,255,0.20);
+    -fx-padding: 16;
+    -fx-background-radius: 4;
+    -fx-border-color: rgba(255,255,255,0.35);
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
+
+.section-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.section-heading {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-letter-spacing: 0.3px;
+}
+
+/* Checkpoint / location card - bold navy left accent = operational unit */
+.location-card {
+    -fx-background-color: white;
+    -fx-padding: 16;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5 1.5 1.5 5;
+    -fx-background-radius: 3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 4, 0, 0, 1);
+}
+
+.location-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565c0;
+    -fx-letter-spacing: 0.3px;
+}
+
+.reader-label-a {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e824c;
+}
+
+.reader-label-b {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b7791f;
+}
+
+/* Per-reader antenna status list (4 rows: circle + "Antenna N") */
+.antenna-panel {
+    -fx-background-color: #f4f8fb;
+    -fx-padding: 6 10;
+    -fx-border-color: #d3e0ea;
+    -fx-border-width: 1;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-min-width: 120;
+}
+
+/* ============ FORM CONTROLS ============ */
+
+.combo-box, .text-field, .date-picker, .password-field, .text-area {
+    -fx-font-size: 14px;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+}
+
+.combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-pref-height: 40px;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+}
+
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-text-fill: #123a5c;
+    -fx-prompt-text-fill: #8b96a0;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-padding: 6 12;
+    -fx-pref-height: 40px;
+}
+
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+}
+
+.text-area .content {
+    -fx-background-color: white;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused, .date-picker:focused, .text-area:focused {
+    -fx-border-color: #1565c0;
+    -fx-border-width: 2.5;
+    -fx-effect: dropshadow(gaussian, rgba(28,52,80,0.35), 6, 0, 0, 0);
+}
+
+.text-field:disabled, .text-field:read-only {
+    -fx-background-color: #eaf3fb;
+    -fx-text-fill: #5a6772;
+    -fx-border-color: #a9c8e6;
+}
+
+.text-field-compact {
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+    -fx-text-fill: #123a5c;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-padding: 6 10;
+    -fx-pref-height: 38px;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+}
+
+.text-field-compact:focused {
+    -fx-border-color: #1565c0;
+    -fx-border-width: 2.5;
+}
+
+.field-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2b5876;
+}
+
+.field-label-light {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.field-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7680;
+    -fx-font-style: italic;
+}
+
+.field-hint-light {
+    -fx-font-size: 12px;
+    -fx-text-fill: #dbe6ef;
+    -fx-font-style: italic;
+}
+
+.check-box {
+    -fx-font-size: 14px;
+    -fx-text-fill: #123a5c;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-padding: 4px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #1565c0;
+    -fx-border-color: #1565c0;
+}
+
+/* ============ UPLOAD / CONFIG ROWS ============ */
+
+.upload-row {
+    -fx-padding: 8 12;
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-background-radius: 3;
+    -fx-border-color: rgba(255,255,255,0.35);
+    -fx-border-radius: 3;
+    -fx-border-width: 1;
+}
+
+.upload-status-ready {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #58e08a;
+}
+
+.upload-status-empty {
+    -fx-font-size: 13px;
+    -fx-text-fill: #dbe6ef;
+}
+
+/* ============ BUTTONS — larger, semantically colored, white text ============ */
+
+.btn {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-height: 42px;
+    -fx-padding: 0 20;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 0.3px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 3, 0, 0, 1);
+}
+
+.btn:hover { -fx-opacity: 0.9; }
+.btn:disabled { -fx-opacity: 0.45; -fx-effect: none; }
+
+.btn:focused {
+    -fx-effect: dropshadow(gaussian, rgba(28,52,80,0.5), 4, 0, 0, 0);
+}
+
+.btn-sm {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-height: 34px;
+    -fx-padding: 0 14;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+}
+
+.btn-primary     { -fx-background-color: #1565c0; }
+.btn-success     { -fx-background-color: #1e824c; }
+.btn-danger      { -fx-background-color: #c0392b; }
+.btn-danger-dark { -fx-background-color: #962f27; }
+.btn-neutral     { -fx-background-color: #6b7680; }
+.btn-purple      { -fx-background-color: #7d5ba6; }
+.btn-orange      { -fx-background-color: #c07a1f; }
+.btn-amber       { -fx-background-color: #d68910; }
+.btn-teal        { -fx-background-color: #1e824c; }
+.btn-blue        { -fx-background-color: #2c5f8a; }
+
+.btn-outline {
+    -fx-background-color: white;
+    -fx-text-fill: #123a5c;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 42px;
+    -fx-padding: 0 20;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-cursor: hand;
+}
+
+/* ============ STATUS BADGES ============ */
+
+.badge {
+    -fx-padding: 3 10;
+    -fx-background-radius: 3;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 0.6px;
+}
+
+.badge-connected  { -fx-background-color: #e5f6ec; -fx-text-fill: #1e824c; -fx-border-color: #1e824c; -fx-border-width: 1; -fx-background-radius: 3; -fx-border-radius: 3; }
+.badge-failed     { -fx-background-color: #fdecea; -fx-text-fill: #c0392b; -fx-border-color: #c0392b; -fx-border-width: 1; -fx-background-radius: 3; -fx-border-radius: 3; }
+.badge-warning    { -fx-background-color: #fdf3e0; -fx-text-fill: #b7791f; -fx-border-color: #b7791f; -fx-border-width: 1; -fx-background-radius: 3; -fx-border-radius: 3; }
+.badge-inactive   { -fx-background-color: #eef1f4; -fx-text-fill: #5a6772; -fx-border-color: #a9c8e6; -fx-border-width: 1; -fx-background-radius: 3; -fx-border-radius: 3; }
+
+.status-value-blue   { -fx-text-fill: #2c5f8a; -fx-font-weight: bold; -fx-font-size: 14px; }
+.status-value-green  { -fx-text-fill: #1e824c; -fx-font-weight: bold; -fx-font-size: 14px; }
+.status-value-red    { -fx-text-fill: #c0392b; -fx-font-weight: bold; -fx-font-size: 14px; }
+
+/* ============ STAT CARDS ============ */
+
+.stat-card {
+    -fx-padding: 12 18;
+    -fx-background-radius: 3;
+    -fx-background-color: white;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 5, 0, 0, 2);
+}
+
+.stat-card-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5a6772;
+    -fx-letter-spacing: 1px;
+}
+
+.stat-card-value {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #123a5c;
+}
+
+.stat-card-value-md {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.winner-tag {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1.2px;
+    -fx-text-fill: #a6791f;
+}
+
+.winner-name {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #123a5c;
+}
+
+.winner-time {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a6791f;
+}
+
+/* ============ PANELS / TABLES ============ */
+
+.panel {
+    -fx-background-color: white;
+    -fx-padding: 16;
+    -fx-background-radius: 4;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+}
+
+.panel-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565c0;
+    -fx-letter-spacing: 0.3px;
+}
+
+.panel-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7680;
+    -fx-font-style: italic;
+}
+
+.table-view {
+    -fx-font-size: 13px;
+    -fx-background-color: white;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-table-cell-border-color: #d3e6f7;
+}
+
+/* Column header row: .column-header-background is just the bar behind the
+   headers - each individual .column-header cell paints its own (default:
+   light gray modena gradient) background ON TOP of it, which is why setting
+   only .column-header-background left every table's header row looking gray.
+   All three need the same dark blue used for the section title bars. */
+.table-view .column-header,
+.table-view .column-header-background,
+.table-view .filler {
+    -fx-background-color: #1565c0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+
+.table-view .column-header:hover {
+    -fx-background-color: #1976d2;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* Default sort-arrow glyph is a dark mark meant for a light header - on this
+   dark header it must be repainted white or a sorted column's arrow disappears. */
+.table-view .column-header .sort-arrow {
+    -fx-background-color: white;
+    -fx-padding: 4px;
+}
+
+.table-row-cell {
+    -fx-cell-size: 36px;
+    -fx-background-color: white;
+    -fx-text-fill: #0a2540;
+}
+
+/* Explicit, since JavaFX's default .table-cell text-fill does not inherit
+   from .table-row-cell and otherwise renders as a faint gray on white rows -
+   applies to every TableView in the app (Registration, Race Entries, Live
+   Tracking, Results), including hovered/selected/alternating rows and any
+   checkbox/label cell content. Deliberately NOT !important: a couple of
+   columns (e.g. Results' Status column) set their own inline green/red via
+   setStyle() and must keep winning over this. */
+.table-view .table-cell,
+.table-view .table-cell .text,
+.table-view .table-cell .label,
+.table-row-cell .table-cell,
+.table-row-cell:odd .table-cell,
+.table-row-cell:hover .table-cell,
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #0a2540;
+    -fx-fill: #0a2540;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f1f8ff;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #dcedfc;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #c9e2fb;
+}
+
+.placeholder-title {
+    -fx-font-size: 15px;
+    -fx-text-fill: #8b96a0;
+    -fx-font-weight: bold;
+}
+
+.placeholder-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7680;
+}
+
+.placeholder-tip {
+    -fx-font-size: 12px;
+    -fx-text-fill: #2c5f8a;
+    -fx-font-style: italic;
+}
+
+/* ============ STATUS BAR / FOOTER ============ */
+
+.status-bar {
+    -fx-background-color: white;
+    -fx-padding: 10 18;
+    -fx-background-radius: 3;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+}
+
+.footer-bar {
+    -fx-background-color: #1565c0;
+    -fx-padding: 8;
+}
+
+.footer-text {
+    -fx-text-fill: #cfe4fb;
+    -fx-font-size: 12px;
+}
+
+.footer-text-accent {
+    -fx-text-fill: #8fc1f0;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* ============ TAB PANE ============ */
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #dbeafe;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #c4dcf5;
+    -fx-padding: 10 24;
+    -fx-border-color: transparent transparent #1976d2 transparent;
+    -fx-border-width: 0 0 3 0;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #1565c0 transparent;
+    -fx-border-width: 0 0 3 0;
+}
+
+.tab-pane .tab-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #375a78;
+    -fx-letter-spacing: 0.3px;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #1565c0;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: #eaf3fb;
+}
+
+/* ============ LOGIN VIEW ============ */
+
+.app-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565c0;
+    -fx-text-alignment: center;
+    -fx-letter-spacing: 0.3px;
+}
+
+.login-heading {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1565c0;
+    -fx-letter-spacing: 0.3px;
+}
+
+.login-card {
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1.5;
+    -fx-padding: 26;
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+
+.error-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #c0392b;
+    -fx-font-weight: bold;
+}
+
+.muted-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7680;
+}

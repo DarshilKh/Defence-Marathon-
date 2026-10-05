@@ -1,0 +1,118 @@
+/* Login Container */
+.login-container {
+    -fx-background-color: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
+    -fx-padding: 40;
+}
+
+/* Logo Text */
+.logo-text {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+/* Title Text */
+.title-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+}
+
+/* Login Heading */
+.login-heading {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+/* Input Container */
+.input-container {
+    -fx-background-color: white;
+    -fx-padding: 40 30 40 30;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+}
+
+/* Label Text */
+.label-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+}
+
+/* Input Field */
+.input-field {
+    -fx-font-size: 14px;
+    -fx-pref-height: 40;
+    -fx-background-radius: 5;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-padding: 5 10;
+}
+
+.input-field:focused {
+    -fx-border-color: #2980b9;
+    -fx-background-color: #f0f8ff;
+}
+
+/* Login Button */
+.login-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 40;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.login-button:pressed {
+    -fx-background-color: #21618c;
+}
+
+/* Exit Button */
+.exit-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 40;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.exit-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+.exit-button:pressed {
+    -fx-background-color: #a93226;
+}
+
+/* Error Label */
+.error-label {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0 0 0;
+}
+
+/* Footer */
+.footer {
+    -fx-padding: 10;
+}
+
+.footer-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.version-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #95a5a6;
+}
